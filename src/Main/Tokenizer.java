@@ -1,15 +1,15 @@
-package Tokenizer;
+package Main;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import util.Arrays.ArrayConversions;
 
-public class Tokenize
+public class Tokenizer
 {
-    public static String[] start(File file) throws IOException
+    public static String[] tokenize(File file) throws IOException
     {
         List<String> list = new ArrayList<>();
         char[] chars = Files.readString(file.toPath()).toCharArray();
@@ -30,7 +30,6 @@ public class Tokenize
             }
         }
 
-        System.out.println(Arrays.toString(list.toArray()));
-        return null;
+        return ArrayConversions.listToArray(list);
     }
 }

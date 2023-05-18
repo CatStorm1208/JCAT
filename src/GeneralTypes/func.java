@@ -8,4 +8,9 @@ public class func
     {
         name = _name;
     }
+
+    public String getName()
+    {
+        return name;
+    }
 }

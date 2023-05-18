@@ -1,9 +1,5 @@
 func main
 {
-    int i -> 9;
-    str s -> "UwU";
-    bool b -> true;
-
     println("Hello World");
 
     return;
