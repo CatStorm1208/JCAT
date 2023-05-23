@@ -14,19 +14,39 @@ public class Tokenizer
         List<String> list = new ArrayList<>();
         char[] chars = Files.readString(file.toPath()).toCharArray();
         String _buffer = "";
+        boolean inString = false;
         for (char c : chars)
         {
-            if (Character.toString(c).matches("[^\\s(){}\\[\\]\";]+")) _buffer += c;
-            else if (Character.toString(c).matches("[(){}\\[\\]\";]"))
+            if (inString)
             {
-                if (!_buffer.matches("")) list.add(_buffer);
-                _buffer = "";
-                list.add(Character.toString(c));
+                if (Character.toString(c).matches("\""))
+                {
+                    inString = false;
+                    list.add(_buffer);
+                    list.add("\"");
+                    _buffer = "";
+                }
+                else
+                {
+                    _buffer += c;
+                }
             }
             else
             {
-                if (!_buffer.matches("")) list.add(_buffer);
-                _buffer = "";
+                if (Character.toString(c).matches("[^\\s(){}\\[\\]\";]+")) _buffer += c;
+
+                else if (Character.toString(c).matches("[(){}\\[\\]\";]"))
+                {
+                    if (!_buffer.matches("")) list.add(_buffer);
+                    _buffer = "";
+                    list.add(Character.toString(c));
+                    if (Character.toString(c).matches("\"")) inString = true;
+                }
+                else
+                {
+                    if (!_buffer.matches("")) list.add(_buffer);
+                    _buffer = "";
+                }
             }
         }
 

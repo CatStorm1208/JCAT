@@ -45,12 +45,13 @@ public class Main
                     if (mainTokens[n].matches("}"))
                     {
                         returnStack.pop();
+                        n++;
                     }
                     else throw new InvalidTokenException(mainTokens[n]);
                 }
                 else throw new InvalidTokenException(mainTokens[n]);
             }
-            else if (mainTokens[n].matches("println")) //Branch for println TODO make this work
+            else if (mainTokens[n].matches("println")) //Branch for println
             {
                 n++;
                 if (mainTokens[n].matches("\\("))
@@ -58,11 +59,7 @@ public class Main
                     n++;
                     if (mainTokens[n].matches("\""))
                     {
-                        while (!mainTokens[n].matches("\""))
-                        {
-                            n++;
-                        }
-
+                        n+=2;
                         if (mainTokens[n].matches("\""))
                         {
                             n++;
@@ -72,8 +69,41 @@ public class Main
                                 if (mainTokens[n].matches(";"))
                                 {
                                     System.out.println(mainTokens[n-3]);
+                                    n++;
                                 }
+                                else throw new InvalidTokenException(mainTokens[n]);
                             }
+                            else throw new InvalidTokenException(mainTokens[n]);
+                        }
+                        else throw new InvalidTokenException(mainTokens[n]);
+                    }
+                    else throw new InvalidTokenException(mainTokens[n]);
+                }
+                else throw new InvalidTokenException(mainTokens[n]);
+            }
+            else if (mainTokens[n].matches("print")) //Branch for println
+            {
+                n++;
+                if (mainTokens[n].matches("\\("))
+                {
+                    n++;
+                    if (mainTokens[n].matches("\""))
+                    {
+                        n+=2;
+                        if (mainTokens[n].matches("\""))
+                        {
+                            n++;
+                            if (mainTokens[n].matches("\\)"))
+                            {
+                                n++;
+                                if (mainTokens[n].matches(";"))
+                                {
+                                    System.out.print(mainTokens[n-3]);
+                                    n++;
+                                }
+                                else throw new InvalidTokenException(mainTokens[n]);
+                            }
+                            else throw new InvalidTokenException(mainTokens[n]);
                         }
                         else throw new InvalidTokenException(mainTokens[n]);
                     }
